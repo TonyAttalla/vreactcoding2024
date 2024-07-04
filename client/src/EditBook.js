@@ -22,7 +22,6 @@ function EditBook() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("IN USEFFECT");
     const fetchBook = async () => {
       try {
         const response = await axios.get(`http://localhost:8080/books/${id}`);

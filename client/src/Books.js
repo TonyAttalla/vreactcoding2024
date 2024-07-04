@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-
+import DeleteBookModal from "./DeleteBookModal";
 import {
   Box,
   SimpleGrid,
@@ -20,6 +20,8 @@ function BookList() {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [bookIdToDelete, setBookIdToDelete] = useState();
 
   const deleteBook = async (id) => {
     try {
@@ -74,7 +76,12 @@ function BookList() {
                 </Link>
 
                 <Button
-                  onClick={() => deleteBook(book.id)}
+                  onClick={() => {
+                    setBookIdToDelete(book.id);
+                    console.log("sETTING DELETE MODAL OPEN");
+                    setDeleteModalOpen(true);
+                    // deleteBook(book.id);
+                  }}
                   colorScheme="red"
                   size="sm"
                 >
@@ -85,6 +92,17 @@ function BookList() {
           </Box>
         ))}
       </SimpleGrid>
+
+      <DeleteBookModal
+        isOpen={deleteModalOpen}
+        onClose={() => {
+          setDeleteModalOpen(false);
+        }}
+        onConfirm={() => {
+          deleteBook(bookIdToDelete);
+          setDeleteModalOpen(false);
+        }}
+      ></DeleteBookModal>
     </Center>
   );
 }
