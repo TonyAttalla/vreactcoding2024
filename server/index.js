@@ -72,8 +72,6 @@ app.put("/books/:id", (req, res) => {
 });
 
 app.delete("/books/:id", (req, res) => {
-  console.log(" IN SERVER");
-  console.log(req.params.id);
   const id = parseInt(req.params.id);
   const index = books.findIndex((book) => book.id === id);
 
