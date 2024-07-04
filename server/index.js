@@ -71,6 +71,27 @@ app.put("/books/:id", (req, res) => {
   }
 });
 
+app.delete("/books/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const index = books.findIndex((book) => book.id === id);
+
+  if (index !== -1) {
+    const deletedBook = books.splice(index, 1);
+    res.json(deletedBook[0]);
+  } else {
+    res.status(404).json({ message: "Book not found" });
+  }
+});
+
+app.post("/books", (req, res) => {
+  const newBook = {
+    id: nextId++,
+    ...req.body,
+  };
+  books.push(newBook);
+  res.status(200).json(newBook);
+});
+
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
