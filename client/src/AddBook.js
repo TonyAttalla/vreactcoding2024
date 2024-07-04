@@ -14,7 +14,7 @@ function AddBook() {
     setBook({ ...book, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const addBook = async (e) => {
     e.preventDefault();
     try {
       await axios.post("http://localhost:8080/books", book);
@@ -36,11 +36,7 @@ function AddBook() {
       <Center>
         <Box width="500px" margin="auto" mt={8}>
           <Heading mb={4}>Add New Book</Heading>
-          <BookForm
-            book={book}
-            onSubmit={handleSubmit}
-            onChange={handleChange}
-          />
+          <BookForm book={book} onSubmit={addBook} onChange={handleChange} />
         </Box>
       </Center>
     </Flex>

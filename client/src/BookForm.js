@@ -18,7 +18,10 @@ function BookForm({ book, onSubmit, onChange }) {
     if (!book.author.trim()) {
       errors.author = "Author is required";
     }
-    if (!book.year.trim()) {
+    if (!book.genre.trim()) {
+      errors.genre = "Genre is required";
+    }
+    if (!book.year.toString().trim()) {
       errors.year = "Year is required";
     } else if (book.year && !/^\d{4}$/.test(book.year)) {
       errors.year = "Year must be a 4-digit number";
@@ -50,6 +53,11 @@ function BookForm({ book, onSubmit, onChange }) {
         <FormLabel>Year</FormLabel>
         <Input name="year" value={book.year} onChange={onChange} />
         <FormErrorMessage>{errors.year}</FormErrorMessage>
+      </FormControl>
+      <FormControl isInvalid={!!errors.genre} mt={4}>
+        <FormLabel>Genre</FormLabel>
+        <Input name="genre" value={book.genre} onChange={onChange} />
+        <FormErrorMessage>{errors.genre}</FormErrorMessage>
       </FormControl>
       <Button mt={4} colorScheme="teal" type="submit">
         {book.id ? "Update Book" : "Add new Book"}

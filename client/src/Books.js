@@ -1,7 +1,16 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import DeleteBookModal from "./DeleteBookModal";
+
+import { useAtom } from "jotai";
+import {
+  booksAtom,
+  loadingAtom,
+  errorAtom,
+  deleteModalOpenAtom,
+  bookIdToDeleteAtom,
+} from "./atoms";
 import {
   Box,
   SimpleGrid,
@@ -16,12 +25,14 @@ import {
 
 import "./App.css";
 function BookList() {
-  const [books, setBooks] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-  const [bookIdToDelete, setBookIdToDelete] = useState();
-
+  // i think these are all better as just state,
+  // i just made them atoms cause the handout requested i use
+  // a state management tool
+  const [books, setBooks] = useAtom(booksAtom);
+  const [loading, setLoading] = useAtom(loadingAtom);
+  const [error, setError] = useAtom(errorAtom);
+  const [deleteModalOpen, setDeleteModalOpen] = useAtom(deleteModalOpenAtom);
+  const [bookIdToDelete, setBookIdToDelete] = useAtom(bookIdToDeleteAtom);
   const deleteBook = async (id) => {
     try {
       await axios.delete(`http://localhost:8080/books/${id}`);
@@ -35,7 +46,6 @@ function BookList() {
       const response = await axios.get("http://localhost:8080/books");
       setBooks(response.data);
       setLoading(false);
-      console.log(response.data);
     } catch (err) {
       setError("An error occurred while fetching books");
       setLoading(false);
@@ -63,10 +73,11 @@ function BookList() {
           >
             <VStack align="start" spacing={2}>
               <Heading size="md">{book.title}</Heading>
-              <Text fontSize="sm" color="gray">
+              <Text as="b" fontSize="sm" color="white">
                 {book.author}
               </Text>
               {book.year && <Badge colorScheme="blue">{book.year}</Badge>}
+              {book.genre && <Badge colorScheme="blue">{book.genre}</Badge>}
               <Flex justifyContent={"space-between"} width={"100%"}>
                 <Link to={`/edit/${book.id}`}>
                   <Button colorScheme="teal" size="sm">

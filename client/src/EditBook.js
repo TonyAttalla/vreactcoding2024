@@ -10,19 +10,17 @@ function EditBook() {
   const [error, setError] = useState(null);
   const { id } = useParams();
   const navigate = useNavigate();
-
+  const fetchBook = async () => {
+    try {
+      const response = await axios.get(`http://localhost:8080/books/${id}`);
+      setBook(response.data);
+      setLoading(false);
+    } catch (err) {
+      setError("An error occurred while fetching the book");
+      setLoading(false);
+    }
+  };
   useEffect(() => {
-    const fetchBook = async () => {
-      try {
-        const response = await axios.get(`http://localhost:8080/books/${id}`);
-        setBook(response.data);
-        setLoading(false);
-      } catch (err) {
-        setError("An error occurred while fetching the book");
-        setLoading(false);
-      }
-    };
-
     fetchBook();
   }, [id]);
 
