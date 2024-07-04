@@ -12,7 +12,6 @@ import {
   Button,
   Center,
   Flex,
-  Spacer,
 } from "@chakra-ui/react";
 
 import "./App.css";
@@ -25,7 +24,7 @@ function BookList() {
 
   const deleteBook = async (id) => {
     try {
-      const response = await axios.delete(`http://localhost:8080/books/${id}`);
+      await axios.delete(`http://localhost:8080/books/${id}`);
     } catch (err) {
       setError("An error occurred while fetching the book");
     }
@@ -51,7 +50,7 @@ function BookList() {
 
   return (
     <Center>
-      <SimpleGrid width={400} spacing={6} padding={2}>
+      <SimpleGrid columns={[1, 2]} width={800} spacing={6} padding={2}>
         {books.map((book) => (
           <Box
             key={book.id}
@@ -78,9 +77,7 @@ function BookList() {
                 <Button
                   onClick={() => {
                     setBookIdToDelete(book.id);
-                    console.log("sETTING DELETE MODAL OPEN");
                     setDeleteModalOpen(true);
-                    // deleteBook(book.id);
                   }}
                   colorScheme="red"
                   size="sm"
@@ -91,6 +88,11 @@ function BookList() {
             </VStack>
           </Box>
         ))}
+        <Link to={`/add`}>
+          <Button colorScheme="teal" size="sm">
+            Add a Book
+          </Button>
+        </Link>
       </SimpleGrid>
 
       <DeleteBookModal

@@ -2,17 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import BookForm from "./BookForm";
-import {
-  Box,
-  VStack,
-  Heading,
-  FormControl,
-  FormLabel,
-  Input,
-  Button,
-  Center,
-  Flex,
-} from "@chakra-ui/react";
+import { Box, VStack, Heading, Center, Flex } from "@chakra-ui/react";
 
 function EditBook() {
   const [book, setBook] = useState({ title: "", author: "", year: "" });

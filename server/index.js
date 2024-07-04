@@ -87,7 +87,7 @@ app.delete("/books/:id", (req, res) => {
 
 app.post("/books", (req, res) => {
   const newBook = {
-    id: nextId++,
+    id: books.length + 1,
     ...req.body,
   };
   books.push(newBook);

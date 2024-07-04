@@ -18,7 +18,9 @@ function BookForm({ book, onSubmit, onChange }) {
     if (!book.author.trim()) {
       errors.author = "Author is required";
     }
-    if (book.year && !/^\d{4}$/.test(book.year)) {
+    if (!book.year.trim()) {
+      errors.year = "Year is required";
+    } else if (book.year && !/^\d{4}$/.test(book.year)) {
       errors.year = "Year must be a 4-digit number";
     }
     setErrors(errors);
