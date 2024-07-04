@@ -23,7 +23,6 @@ import {
   Flex,
 } from "@chakra-ui/react";
 
-import "./App.css";
 function BookList() {
   // i think these are all better as just state,
   // i just made them atoms cause the handout requested i use
