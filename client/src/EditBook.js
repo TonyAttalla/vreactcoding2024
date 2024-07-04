@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
+import BookForm from "./BookForm";
 import {
   Box,
   VStack,
@@ -64,31 +65,11 @@ function EditBook() {
         <Box width="500px">
           <VStack spacing={4} align="stretch">
             <Heading>Edit Book</Heading>
-            <form onSubmit={handleSubmit}>
-              <FormControl>
-                <FormLabel>Title</FormLabel>
-                <Input
-                  name="title"
-                  value={book.title}
-                  onChange={handleChange}
-                />
-              </FormControl>
-              <FormControl mt={4}>
-                <FormLabel>Author</FormLabel>
-                <Input
-                  name="author"
-                  value={book.author}
-                  onChange={handleChange}
-                />
-              </FormControl>
-              <FormControl mt={4}>
-                <FormLabel>Year</FormLabel>
-                <Input name="year" value={book.year} onChange={handleChange} />
-              </FormControl>
-              <Button mt={4} colorScheme="teal" type="submit">
-                Update Book
-              </Button>
-            </form>
+            <BookForm
+              book={book}
+              onSubmit={handleSubmit}
+              onChange={handleChange}
+            />
           </VStack>
         </Box>
       </Center>
