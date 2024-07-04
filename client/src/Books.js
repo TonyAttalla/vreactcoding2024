@@ -12,6 +12,7 @@ import {
   Button,
   Center,
   Flex,
+  Spacer,
 } from "@chakra-ui/react";
 
 import "./App.css";
@@ -48,7 +49,7 @@ function BookList() {
 
   return (
     <Center>
-      <SimpleGrid width={500} spacing={6} padding={2}>
+      <SimpleGrid width={400} spacing={6} padding={2}>
         {books.map((book) => (
           <Box
             key={book.id}
@@ -65,19 +66,21 @@ function BookList() {
                 {book.author}
               </Text>
               {book.year && <Badge colorScheme="blue">{book.year}</Badge>}
+              <Flex justifyContent={"space-between"} width={"100%"}>
+                <Link to={`/edit/${book.id}`}>
+                  <Button colorScheme="teal" size="sm">
+                    Edit
+                  </Button>
+                </Link>
 
-              <Link to={`/edit/${book.id}`}>
-                <Button colorScheme="teal" size="sm">
-                  Edit
+                <Button
+                  onClick={() => deleteBook(book.id)}
+                  colorScheme="red"
+                  size="sm"
+                >
+                  Delete
                 </Button>
-              </Link>
-              <Button
-                onClick={() => deleteBook(book.id)}
-                colorScheme="red"
-                size="sm"
-              >
-                Delete
-              </Button>
+              </Flex>
             </VStack>
           </Box>
         ))}

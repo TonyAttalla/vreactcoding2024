@@ -9,6 +9,8 @@ import {
   FormLabel,
   Input,
   Button,
+  Center,
+  Flex,
 } from "@chakra-ui/react";
 
 function EditBook() {
@@ -52,28 +54,45 @@ function EditBook() {
   else if (error) return <Box color="red.500">{error}</Box>;
 
   return (
-    <Box maxWidth="500px" margin="auto" mt={8}>
-      <VStack spacing={4} align="stretch">
-        <Heading>Edit Book</Heading>
-        <form onSubmit={handleSubmit}>
-          <FormControl>
-            <FormLabel>Title</FormLabel>
-            <Input name="title" value={book.title} onChange={handleChange} />
-          </FormControl>
-          <FormControl mt={4}>
-            <FormLabel>Author</FormLabel>
-            <Input name="author" value={book.author} onChange={handleChange} />
-          </FormControl>
-          <FormControl mt={4}>
-            <FormLabel>Year</FormLabel>
-            <Input name="year" value={book.year} onChange={handleChange} />
-          </FormControl>
-          <Button mt={4} colorScheme="teal" type="submit">
-            Update Book
-          </Button>
-        </form>
-      </VStack>
-    </Box>
+    <Flex
+      width={"100vw"}
+      height={"100vh"}
+      alignItems={"center"}
+      justifyContent={"center"}
+    >
+      <Center>
+        <Box width="500px">
+          <VStack spacing={4} align="stretch">
+            <Heading>Edit Book</Heading>
+            <form onSubmit={handleSubmit}>
+              <FormControl>
+                <FormLabel>Title</FormLabel>
+                <Input
+                  name="title"
+                  value={book.title}
+                  onChange={handleChange}
+                />
+              </FormControl>
+              <FormControl mt={4}>
+                <FormLabel>Author</FormLabel>
+                <Input
+                  name="author"
+                  value={book.author}
+                  onChange={handleChange}
+                />
+              </FormControl>
+              <FormControl mt={4}>
+                <FormLabel>Year</FormLabel>
+                <Input name="year" value={book.year} onChange={handleChange} />
+              </FormControl>
+              <Button mt={4} colorScheme="teal" type="submit">
+                Update Book
+              </Button>
+            </form>
+          </VStack>
+        </Box>
+      </Center>
+    </Flex>
   );
 }
 
