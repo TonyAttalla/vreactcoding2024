@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import DeleteBookModal from "./DeleteBookModal";
 
@@ -41,7 +41,7 @@ function BookList() {
     }
     fetchBooks();
   };
-  const fetchBooks = async () => {
+  const fetchBooks = useCallback(async () => {
     try {
       const response = await axios.get("http://localhost:8080/books");
       setBooks(response.data);
@@ -50,10 +50,10 @@ function BookList() {
       setError("An error occurred while fetching books");
       setLoading(false);
     }
-  };
+  }, [setBooks, setError, setLoading]);
   useEffect(() => {
     fetchBooks();
-  }, []);
+  }, [fetchBooks]);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
