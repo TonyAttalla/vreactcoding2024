@@ -20,6 +20,14 @@ function BookList() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const deleteBook = async (id) => {
+    try {
+      const response = await axios.delete(`http://localhost:8080/books/${id}`);
+    } catch (err) {
+      setError("An error occurred while fetching the book");
+    }
+    fetchBooks();
+  };
   const fetchBooks = async () => {
     try {
       const response = await axios.get("http://localhost:8080/books");
@@ -63,6 +71,13 @@ function BookList() {
                   Edit
                 </Button>
               </Link>
+              <Button
+                onClick={() => deleteBook(book.id)}
+                colorScheme="red"
+                size="sm"
+              >
+                Delete
+              </Button>
             </VStack>
           </Box>
         ))}
